@@ -1,0 +1,37 @@
+{% extends 'navbar.html' %}
+{% block nav %}
+<div class="col-sm-6 mx-auto">
+    <form action="" method="post">
+        {% csrf_token %} 
+        <table>
+            <h2 class="text-center bg-primary p-1 text-light">Update</h2>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+            <tr>
+                <th>
+                    <div>
+                        {{form.event.errors}}
+                        {{form.event}}
+                    </div>
+                </th>
+                <th>
+                    <div>
+                    {{form.date.errors}}
+                    {{form.date}}
+                    </div>
+                </th>
+                <th>
+                    <div>
+                    {{form.time.errors}}
+                    {{form.time}}
+                    </div>
+                </th>
+            </tr>  
+        </table> 
+        <button class="btn btn-info">Update</button>            
+    </form>
+</div>
+{% endblock nav %}

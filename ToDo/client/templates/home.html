@@ -1,0 +1,95 @@
+{% extends 'navbar.html' %}
+{% block nav %}
+    {% for i in messages %} 
+    {% if i.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %} 
+    <div class="alert alert-success">
+      <p>{{i}}</p>
+    </div>
+    {% endif %}
+    {% if i.level == DEFAULT_MESSAGE_LEVELS.ERROR %} 
+    <div class="alert alert-danger">
+      <p>{{i}}</p>
+    </div>
+    {% endif %}
+    {% if i.level == DEFAULT_MESSAGE_LEVELS.INFO %} 
+    <div class="alert alert-info">
+      <p>{{i}}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <main class="container mt-3">
+        <div class="list">
+            <table class="table table-info">
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Event</th>
+                    <th>Time of Entry</th>
+                </tr>
+                {% for i in data %} 
+                <tr>
+                    <td>{{ i.date|date:"D d M Y" }}</td>
+                    <td> {{ i.time|time:"H:i" }}</td>
+                    <td>{{i.event}}</td>
+                    <td>{{i.createddt}}</td>
+                    <td><a href="{% url 'update'  i.pk %}">Update</a></td>
+                    <td><a href="{% url 'delete' i.pk %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+              <form action="" method="post">
+                {% csrf_token %}
+                <tr>
+                    <td>
+                        <div>
+                        {{form.date.errors}}
+                        {{form.date}}
+                        </div>
+                    </td>
+                    <td>
+                      <div>
+                      {{form.time.errors}}
+                      {{form.time}}
+                      </div>
+                    </td>
+                    <td>
+                      <div>
+                          {{form.event.errors}}
+                          {{form.event}}
+                      </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <button class="btn btn-info">ADD</button>
+                    </td>
+                </tr>
+              </form>
+            </table>
+        </div>
+        <!-- <div class="form">
+            <form action="" method="post">
+                {% csrf_token %} 
+                <table class="table">
+                    {{form.as_table}}
+                </table>
+                <button class="btn btn-info">ADD</button>
+            </form>
+        </div> -->
+        <p id="demo1"></p>
+        <p id="demo2"></p>
+        <input type="button" value="PLAY" onclick="play()">
+    <audio id="audio" src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"></audio>
+
+    </main>
+    <script>
+      // document.getElementById("demo1").innerHTML = "{{data.username}}";
+      // "{% for i in data %}"
+      // document.getElementById("demo2").innerHTML = "{{i.ondate}}";
+      // "{% endfor %}" 
+      function play() {
+        var audio = document.getElementById("audio");
+        audio.play();
+      }
+      
+    </script>
+{% endblock nav %}
